@@ -3,8 +3,6 @@ package maliens
 import (
 	"fmt"
 
-	"github.com/pkg/errors"
-
 	"github.com/shravanshetty1/mad-aliens/pkg/world"
 
 	"github.com/spf13/cobra"
@@ -30,12 +28,12 @@ func Command() *cobra.Command {
 		mapFile := args[0]
 		wrld, err := world.ParseMap(mapFile)
 		if err != nil {
-			return errors.Wrap(err, "could not parse map")
+			return err
 		}
 
 		err = wrld.SpawnAliens(numberOfAliens)
 		if err != nil {
-			return errors.Wrap(err, "could not spawn aliens")
+			return err
 		}
 
 		for i := 0; i < MAX_ITERATIONS; i++ {

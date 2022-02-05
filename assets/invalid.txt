@@ -1,0 +1,9 @@
+Kal east=Foo
+Foo east=Bar west=Kal north=Car south=Baz
+Car south=Foo
+Baz north=Foo east=Dap
+Bar east=Baj west=Foo south=Dap
+Dap north=Bar west=Baz
+Baj east=Cal west=Bar south=Pad
+Pad north=Baj
+Cal west=Baj kaslhdfkhaskdfhlaskdhf

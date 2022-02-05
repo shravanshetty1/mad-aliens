@@ -15,6 +15,8 @@ type World struct {
 	Aliens map[string]*Alien
 }
 
+// Update updates the current world state.
+// Triggers all aliens to move and then checks if any city has been destroyed.
 func (w *World) Update() []string {
 	var events []string
 	for _, alien := range w.Aliens {
@@ -98,6 +100,8 @@ func (w *World) SpawnAliens(aliens int) error {
 	return nil
 }
 
+// ParseMap parses given file into world object which is the internal representation
+// of the world in the program
 func ParseMap(pathToMap string) (*World, error) {
 	content, err := ioutil.ReadFile(pathToMap)
 	if err != nil {

@@ -7,6 +7,7 @@ type Alien struct {
 	Location *City
 }
 
+// Move causes the alien to move to one of the cities connected to the current city, the city is chosen at random.
 func (a *Alien) Move() string {
 	prevCity := a.Location
 	delete(prevCity.Aliens, a.Name)
