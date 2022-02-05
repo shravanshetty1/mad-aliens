@@ -7,17 +7,18 @@ type Alien struct {
 	Location *City
 }
 
-// TODO if alien did not move it should not print an event
-func (a *Alien) Move() {
+func (a *Alien) Move() string {
 	prevCity := a.Location
 	delete(prevCity.Aliens, a.Name)
 
 	connectedCities := prevCity.ListConnectedCities()
 	if len(connectedCities) < 1 {
-		return
+		return ""
 	}
 	currCity := connectedCities[rand.Intn(len(connectedCities))]
 
 	a.Location = currCity
 	currCity.Aliens[a.Name] = a
+
+	return "Alien " + a.Name + " moved from " + prevCity.Name + " to " + currCity.Name
 }

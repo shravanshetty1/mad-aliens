@@ -18,10 +18,8 @@ func (w *World) Update() []string {
 
 	var events []string
 	for _, alien := range w.Aliens {
-		prevCity := alien.Location.Name
 		alien.Move()
-		currCity := alien.Location.Name
-		events = append(events, "Alien "+alien.Name+" moved from "+prevCity+" to "+currCity)
+		//events = append(events, alien.Move())
 	}
 
 	for _, city := range w.Cities {
