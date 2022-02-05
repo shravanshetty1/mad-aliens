@@ -14,11 +14,10 @@ func Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "maliens",
 		Short:   "Simulates an alien invasion on a world. Map of the world and number of aliens are the inputs.",
-		Example: "maliens ./map.txt --aliens 3",
+		Example: "maliens ./assets/map.txt --aliens 3",
 	}
 
-	var numberOfAliens int
-	cmd.Flags().IntVar(&numberOfAliens, "aliens", 0, "number of aliens invading the world")
+	numberOfAliens := *cmd.Flags().Int("aliens", 0, "number of aliens invading the world")
 
 	cmd.RunE = func(cmd *cobra.Command, args []string) (err error) {
 		if len(args) < 1 || args[0] == "" {
