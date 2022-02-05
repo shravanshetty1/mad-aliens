@@ -22,7 +22,7 @@ func (w *World) Update() []string {
 	for _, alien := range w.Aliens {
 		event := alien.Move()
 		if event != "" {
-			events = append(events, event)
+			//events = append(events, event)
 		}
 	}
 
