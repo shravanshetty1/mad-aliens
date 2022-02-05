@@ -42,6 +42,6 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-      - name: Try to install
+      - name: Run tests
         run: |
           go test ./...
