@@ -1,6 +1,5 @@
 package world
 
-// TODO remove city direction
 type City struct {
 	Name                   string
 	ConnectedCityDirection map[string]string

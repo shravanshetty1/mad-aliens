@@ -7,12 +7,13 @@ import (
 	"strings"
 )
 
+const DestructionThreshold = 1
+const AlienPrefix = "alien"
+
 type World struct {
 	Cities map[string]*City
 	Aliens map[string]*Alien
 }
-
-const DestructionThreshold = 1
 
 func (w *World) Update() []string {
 
@@ -42,14 +43,13 @@ func (w *World) Update() []string {
 
 func (w *World) DestroyCity(city *City) {
 	delete(w.Cities, city.Name)
+	for _, alien := range city.Aliens {
+		delete(w.Aliens, alien.Name)
+	}
 
 	for _, connectedCity := range city.ConnectedCities {
 		delete(connectedCity.ConnectedCities, city.Name)
 		delete(connectedCity.ConnectedCityDirection, city.Name)
-	}
-
-	for _, alien := range city.Aliens {
-		delete(w.Aliens, alien.Name)
 	}
 }
 
@@ -75,14 +75,16 @@ func (w *World) GetMap() string {
 	return mapContent
 }
 
-const AlienPrefix = "alien"
-
-// TODO handle errors
-func (w *World) SpawnAliens(aliens int) {
+func (w *World) SpawnAliens(aliens int) error {
 	cities := w.ListCities()
 
 	alienMap := make(map[string]*Alien)
 	bound := len(cities)
+
+	if bound < 1 {
+		return fmt.Errorf("no cities for aliens to spawn in")
+	}
+
 	for i := 1; i < aliens+1; i++ {
 		name := AlienPrefix + fmt.Sprint(i)
 		city := cities[rand.Intn(bound)]
@@ -95,10 +97,9 @@ func (w *World) SpawnAliens(aliens int) {
 	}
 
 	w.Aliens = alienMap
+	return nil
 }
 
-// TODO add error handling
-// TODO add validation
 func ParseMap(pathToMap string) (*World, error) {
 	content, err := ioutil.ReadFile(pathToMap)
 	if err != nil {
@@ -112,18 +113,23 @@ func ParseMap(pathToMap string) (*World, error) {
 		lineParts := strings.Split(line, " ")
 		city := lineParts[0]
 
-		cityToCityPaths[city] = lineParts[1:]
-		cities[city] = &City{
-			Name:                   city,
-			ConnectedCities:        make(map[string]*City),
-			ConnectedCityDirection: make(map[string]string),
-			Aliens:                 make(map[string]*Alien),
+		if len(lineParts) < 2 {
+			cityToCityPaths[city] = lineParts[1:]
+			cities[city] = &City{
+				Name:                   city,
+				ConnectedCities:        make(map[string]*City),
+				ConnectedCityDirection: make(map[string]string),
+				Aliens:                 make(map[string]*Alien),
+			}
 		}
 	}
 
 	for city, paths := range cityToCityPaths {
 		for _, path := range paths {
 			arr := strings.Split(path, "=")
+			if len(arr) != 2 {
+				return nil, fmt.Errorf("invalid path in map, got path - " + path)
+			}
 			direction := arr[0]
 			connectedCity := arr[1]
 			cities[city].ConnectedCities[connectedCity] = cities[connectedCity]
