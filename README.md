@@ -1,6 +1,6 @@
 # Alien Invasion simulation
 
-Program simulates an alien invasion of a world.
+Program simulates an alien invasion of a world. Here is the [spec](./docs/spec.pdf).
 
 ## Usage
 ```
