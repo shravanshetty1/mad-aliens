@@ -32,3 +32,6 @@ Pad north=Baj
 ## Assumptions
 * Aliens wont destory the city they spawned in.
 * If more than 2 aliens exist in city, all aliens and city will be destroyed.
+
+## Example map layout
+![](./assets/layout.jpeg)
