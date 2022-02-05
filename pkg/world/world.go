@@ -16,7 +16,6 @@ type World struct {
 }
 
 func (w *World) Update() []string {
-
 	var events []string
 	for _, alien := range w.Aliens {
 		event := alien.Move()
@@ -77,7 +76,6 @@ func (w *World) GetMap() string {
 
 func (w *World) SpawnAliens(aliens int) error {
 	cities := w.ListCities()
-
 	alienMap := make(map[string]*Alien)
 	bound := len(cities)
 
@@ -113,14 +111,15 @@ func ParseMap(pathToMap string) (*World, error) {
 		lineParts := strings.Split(line, " ")
 		city := lineParts[0]
 
-		if len(lineParts) < 2 {
+		if len(lineParts) > 1 {
 			cityToCityPaths[city] = lineParts[1:]
-			cities[city] = &City{
-				Name:                   city,
-				ConnectedCities:        make(map[string]*City),
-				ConnectedCityDirection: make(map[string]string),
-				Aliens:                 make(map[string]*Alien),
-			}
+		}
+
+		cities[city] = &City{
+			Name:                   city,
+			ConnectedCities:        make(map[string]*City),
+			ConnectedCityDirection: make(map[string]string),
+			Aliens:                 make(map[string]*Alien),
 		}
 	}
 
