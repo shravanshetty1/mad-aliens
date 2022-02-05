@@ -25,4 +25,4 @@ jobs:
             ${{ runner.os }}-go-
       - name: Try to install
         run: |
-          go install cmd/maliens
+          go install ./cmd/maliens

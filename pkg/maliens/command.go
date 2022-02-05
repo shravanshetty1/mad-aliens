@@ -39,7 +39,7 @@ func Command() *cobra.Command {
 				fmt.Println(e)
 			}
 
-			if len(wrld.Cities()) < 1 {
+			if len(wrld.ListCities()) < 1 {
 				fmt.Println("Invasion successful - All the cities have been destroyed")
 				return nil
 			}
