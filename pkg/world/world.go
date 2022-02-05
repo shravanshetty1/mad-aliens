@@ -47,6 +47,10 @@ func (w *World) DestroyCity(city *City) {
 		delete(connectedCity.ConnectedCities, city.Name)
 		delete(connectedCity.ConnectedCityDirection, city.Name)
 	}
+
+	for _, alien := range city.Aliens {
+		delete(w.Aliens, alien.Name)
+	}
 }
 
 func (w *World) ListCities() []*City {
