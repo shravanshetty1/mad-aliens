@@ -1,6 +1,7 @@
 package world
 
 import (
+	"math/rand"
 	"path/filepath"
 	"testing"
 
@@ -80,4 +81,52 @@ func Test_SpawnAliens(t *testing.T) {
 			require.Contains(t, err.Error(), tc.Err)
 		}
 	}
+}
+
+func Test_Update(t *testing.T) {
+	const seed = 2
+
+	city1 := &City{
+		Name:                   "York1",
+		ConnectedCities:        make(map[string]*City),
+		ConnectedCityDirection: make(map[string]string),
+		Aliens:                 make(map[string]*Alien),
+	}
+	city2 := &City{
+		Name:                   "York2",
+		ConnectedCities:        make(map[string]*City),
+		ConnectedCityDirection: make(map[string]string),
+		Aliens:                 make(map[string]*Alien),
+	}
+	city3 := &City{
+		Name:                   "York3",
+		ConnectedCities:        make(map[string]*City),
+		ConnectedCityDirection: make(map[string]string),
+		Aliens:                 make(map[string]*Alien),
+	}
+	city1.ConnectedCities[city2.Name] = city2
+	city1.ConnectedCities[city3.Name] = city3
+	city2.ConnectedCities[city3.Name] = city1
+	city2.ConnectedCities[city3.Name] = city3
+	city3.ConnectedCities[city3.Name] = city1
+	city3.ConnectedCities[city3.Name] = city2
+
+	wrld := &World{
+		Cities: map[string]*City{
+			city1.Name: city1,
+			city2.Name: city2,
+			city3.Name: city3,
+		},
+	}
+
+	rand.Seed(seed)
+	err := wrld.SpawnAliens(2)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	wrld.Update()
+
+	require.Equal(t, wrld.Aliens["alien1"].Location.Name, city3.Name)
+	require.Equal(t, wrld.Aliens["alien2"].Location.Name, city2.Name)
 }
