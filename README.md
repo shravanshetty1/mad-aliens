@@ -1,6 +1,7 @@
 ![build status](https://github.com/shravanshetty1/mad-aliens/actions/workflows/build.yml/badge.svg)
 ![test status](https://github.com/shravanshetty1/mad-aliens/actions/workflows/test.yml/badge.svg)
 ![lint status](https://github.com/shravanshetty1/mad-aliens/actions/workflows/lint.yml/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/shravanshetty1/mad-aliens)](https://goreportcard.com/report/github.com/shravanshetty1/mad-aliens)
 
 # Alien Invasion simulation
 
