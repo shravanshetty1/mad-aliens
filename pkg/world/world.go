@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/rand"
+	"sort"
 	"strings"
 )
 
@@ -19,7 +20,7 @@ type World struct {
 // Triggers all aliens to move and then checks if any city has been destroyed.
 func (w *World) Update() []string {
 	var events []string
-	for _, alien := range w.Aliens {
+	for _, alien := range w.ListAliens() {
 		event := alien.Move()
 		if event != "" {
 			//events = append(events, event)
@@ -60,7 +61,24 @@ func (w *World) ListCities() []*City {
 		cities = append(cities, city)
 	}
 
+	sort.Slice(cities, func(i, j int) bool {
+		return cities[i].Name > cities[j].Name
+	})
+
 	return cities
+}
+
+func (w *World) ListAliens() []*Alien {
+	var aliens []*Alien
+	for _, alien := range w.Aliens {
+		aliens = append(aliens, alien)
+	}
+
+	sort.Slice(aliens, func(i, j int) bool {
+		return aliens[i].Name > aliens[j].Name
+	})
+
+	return aliens
 }
 
 func (w *World) GetMap() string {
