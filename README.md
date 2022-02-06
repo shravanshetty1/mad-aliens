@@ -1,3 +1,7 @@
+![build status](https://github.com/shravanshetty1/mad-aliens/actions/workflows/build.yml/badge.svg)
+![test status](https://github.com/shravanshetty1/mad-aliens/actions/workflows/test.yml/badge.svg)
+![lint status](https://github.com/shravanshetty1/mad-aliens/actions/workflows/lint.yml/badge.svg)
+
 # Alien Invasion simulation
 
 Program simulates an alien invasion of a world. Here is the [spec](./docs/spec.pdf).

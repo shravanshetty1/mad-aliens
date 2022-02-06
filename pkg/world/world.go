@@ -21,10 +21,11 @@ type World struct {
 func (w *World) Update() []string {
 	var events []string
 	for _, alien := range w.ListAliens() {
-		event := alien.Move()
-		if event != "" {
-			//events = append(events, event)
-		}
+		alien.Move()
+		//event := alien.Move()
+		//if event != "" {
+		//	events = append(events, event)
+		//}
 	}
 
 	for _, city := range w.Cities {

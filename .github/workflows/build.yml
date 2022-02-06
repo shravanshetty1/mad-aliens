@@ -1,4 +1,4 @@
-name: CI
+name: Build
 on:
   push:
     branches:
@@ -26,22 +26,3 @@ jobs:
       - name: Try to install
         run: |
           go install ./cmd/maliens
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.16.x
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cache/go-build
-            ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-      - name: Run tests
-        run: |
-          go test ./...
