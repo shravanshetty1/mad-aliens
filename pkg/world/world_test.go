@@ -1,7 +1,6 @@
 package world
 
 import (
-	"fmt"
 	"math/rand"
 	"path/filepath"
 	"testing"
@@ -124,8 +123,7 @@ func Test_Update(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	e := wrld.Update()
-	fmt.Println(e)
+	wrld.Update()
 
 	require.NotNil(t, wrld.Cities[city1.Name])
 	require.NotNil(t, wrld.Cities[city2.Name])
