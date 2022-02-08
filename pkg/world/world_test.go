@@ -104,10 +104,10 @@ func Test_Update(t *testing.T) {
 	}
 	city1.ConnectedCities[city2.Name] = city2
 	city1.ConnectedCities[city3.Name] = city3
-	city2.ConnectedCities[city3.Name] = city1
+	city2.ConnectedCities[city1.Name] = city1
 	city2.ConnectedCities[city3.Name] = city3
-	city3.ConnectedCities[city3.Name] = city1
-	city3.ConnectedCities[city3.Name] = city2
+	city3.ConnectedCities[city1.Name] = city1
+	city3.ConnectedCities[city2.Name] = city2
 
 	wrld := &World{
 		Cities: map[string]*City{
